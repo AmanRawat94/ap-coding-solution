@@ -21,9 +21,10 @@ import {
   logoutSuccess,
 } from "../../redux/user/userSlice";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
 const DashProfile = () => {
-  const { currentUser, error } = useSelector((state) => state.user);
+  const { currentUser, error, loading } = useSelector((state) => state.user);
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null);
   const [imageFileUploading, setImageFileUploading] = useState(false);
@@ -237,9 +238,24 @@ const DashProfile = () => {
           autoComplete="off"
           onChange={handleChange}
         />
-        <Button type="submit" gradientDuoTone="redToYellow">
-          Update
+        <Button
+          type="submit"
+          gradientDuoTone="redToYellow"
+          disabled={loading || imageFileUploading}
+        >
+          {loading ? "Loading..." : "Update"}
         </Button>
+        {currentUser.isAdmin && (
+          <Link to={"/create-post"}>
+            <Button
+              type="button"
+              gradientDuoTone="purpleToPink"
+              className="w-full"
+            >
+              Create New Post
+            </Button>
+          </Link>
+        )}
       </form>
       <div className="flex justify-between mt-5">
         <span onClick={() => setShowModal(true)} className="cursor-pointer">

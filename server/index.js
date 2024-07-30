@@ -4,6 +4,7 @@ const app = express();
 const connectDb = require("./utils/db");
 const userRoutes = require("./routes/user-routes.js");
 const authRoutes = require("./routes/auth-route.js");
+const postRoutes = require("./routes/post-route.js");
 const cookieParser = require("cookie-parser");
 
 app.use(express.json());
@@ -11,6 +12,7 @@ app.use(cookieParser());
 
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/post", postRoutes);
 
 const PORT = 3000;
 connectDb().then(() => {
