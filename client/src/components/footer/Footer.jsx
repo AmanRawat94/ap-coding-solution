@@ -5,6 +5,7 @@ import {
   FaTwitter,
   FaLinkedin,
   FaTelegramPlane,
+  FaYoutube,
 } from "react-icons/fa";
 import { CiLocationOn } from "react-icons/ci";
 import { Link, useNavigate } from "react-router-dom";
@@ -46,9 +47,7 @@ const Footer = () => {
           >
             About
           </li>
-          <li className="cursor-pointer text-xs transition-all duration-300 ease hover:text-pinky">
-            Blog
-          </li>
+
           <li className="cursor-pointer text-xs transition-all duration-300 ease hover:text-pinky">
             FAQ
           </li>
@@ -56,7 +55,9 @@ const Footer = () => {
         {/* <div className="text-xs opacity-50 text-white text-center max-w-3xl mb-5">
           <p className="">© 2024, AP TECH CENTER. All rights reserved.</p>
         </div> */}
-        <div className="my-4">© 2024, AP TECH CENTER. All rights reserved.</div>
+        <div className="my-4">
+          © 2024, AP Coding Solution. All rights reserved.
+        </div>
         {/* <p className=" mb-5">
           <span className=" text-sm font-medium">Created by : </span>{" "}
           <Link
@@ -68,13 +69,6 @@ const Footer = () => {
         </p> */}
         <div className=" my-4 w-full flex justify-around ">
           <div>
-            <p className=" text-base hover:text-pinky ">
-              <CiLocationOn className=" inline text-white" />{" "}
-              <span>Address : </span>
-              Makkhumath,
-              <br /> Rudraprayag, Ukhimath - <br />
-              246419
-            </p>
             <ul>
               <li className=" py-2">
                 <Link to="/" className="text-base hover:text-pinky ">
@@ -91,18 +85,23 @@ const Footer = () => {
                   Contact
                 </Link>
               </li>
+              <li className="py-2">
+                <Link to="contact" className="text-base hover:text-pinky">
+                  Projects
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
             <ul className="text-base ">
               <li className="py-2 hover:text-pinky">
-                <Link to="/">Room 1</Link>
+                <Link to="/">HTML</Link>
               </li>
               <li className="py-2 hover:text-pinky">
-                <Link to="/room2">Room 2</Link>
+                <Link to="/room2">CSS</Link>
               </li>
               <li className="py-2 hover:text-pinky">
-                <Link to="room3">Room 3</Link>
+                <Link to="room3">JavaScript</Link>
               </li>
               <li className="py-2 hover:text-pinky">
                 <Link to="room4">Room 4</Link>
@@ -112,10 +111,13 @@ const Footer = () => {
         </div>
         <div className="flex items-center justify-center gap-2">
           <span className="w-12 h-12 rounded-full bg-socialiconbg flex items-center justify-center cursor-pointer transition-all duration-300 ease hover:text-pinky hover:shadow-custom ">
-            <FaFacebookF onClick={handleFb} />
+            <FaFacebookF />
           </span>
           <span className="w-12 h-12 rounded-full bg-socialiconbg flex items-center justify-center cursor-pointer transition-all duration-300 ease hover:text-pinky hover:shadow-custom">
-            <FaInstagram onClick={handleInsta} />
+            <FaInstagram />
+          </span>
+          <span className="w-12 h-12 rounded-full bg-socialiconbg flex items-center justify-center cursor-pointer transition-all duration-300 ease hover:text-pinky hover:shadow-custom">
+            <FaYoutube />
           </span>
           <span className="w-12 h-12 rounded-full bg-socialiconbg flex items-center justify-center cursor-pointer transition-all duration-300 ease hover:text-pinky hover:shadow-custom">
             <FaTwitter />

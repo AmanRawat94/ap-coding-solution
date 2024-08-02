@@ -76,7 +76,10 @@ const google = async (req, res, next) => {
     if (user) {
       const token = jwt.sign(
         { id: user._id, isAdmin: user.isAdmin },
-        process.env.JWT_SECRET_KEY
+        process.env.JWT_SECRET_KEY,
+        {
+          expiresIn: "30d",
+        }
       );
       const { password, ...rest } = user._doc;
       res
@@ -101,7 +104,10 @@ const google = async (req, res, next) => {
       await newUser.save();
       const token = jwt.sign(
         { id: newUser._id, isAdmin: newUser.isAdmin },
-        process.env.JWT_SECRET_KEY
+        process.env.JWT_SECRET_KEY,
+        {
+          expiresIn: "30d",
+        }
       );
       const { password, ...rest } = newUser._doc;
       res
