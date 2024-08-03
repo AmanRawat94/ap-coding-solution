@@ -28,9 +28,9 @@ export default defineConfig({
     },
   },
   plugins: [react()],
-  esbuild: {
-    jsxInject: `import React from 'react'`,
-  },
+  // esbuild: {
+  //   jsxInject: `import React from 'react'`,
+  // },
   optimizeDeps: {
     esbuildOptions: {
       jsx: "transform",
