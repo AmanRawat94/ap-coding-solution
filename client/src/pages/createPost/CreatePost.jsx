@@ -1,6 +1,13 @@
-import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
+import React, { useState, useEffect, useRef } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import Prism from "prismjs";
+import "prismjs/themes/prism.css";
+import "prismjs/components/prism-markup"; // HTML
+import "prismjs/components/prism-css"; // CSS
+import "prismjs/components/prism-javascript"; // JavaScript
+import "prismjs/components/prism-jsx"; // React (JSX)
+import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
 import {
   getDownloadURL,
   getStorage,
@@ -8,11 +15,11 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../../firebase";
-import { useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import "../../syntax-highlighting.css";
 
 const CreatePost = () => {
   const [file, setFile] = useState(null);
@@ -20,7 +27,7 @@ const CreatePost = () => {
   const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
-
+  const quillRef = useRef(null);
   const navigate = useNavigate();
 
   const handleUpdloadImage = async () => {
@@ -59,6 +66,7 @@ const CreatePost = () => {
       console.log(error);
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -85,6 +93,92 @@ const CreatePost = () => {
       setPublishError("Something went wrong");
     }
   };
+
+  const modules = {
+    toolbar: [
+      [{ header: "1" }, { header: "2" }, { font: [] }],
+      [{ size: [] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link", "image", "video"],
+      ["clean"],
+      [{ "code-block": "code-block" }],
+    ],
+  };
+
+  const formats = [
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+    "video",
+    "code-block",
+  ];
+
+  useEffect(() => {
+    if (quillRef.current) {
+      const editor = quillRef.current.getEditor();
+      editor.clipboard.addMatcher(Node.TEXT_NODE, (node, delta) => {
+        const regex = /```(\w+)?\n([\s\S]*?)```/g;
+        const ops = delta.ops.map((op) => {
+          if (typeof op.insert === "string") {
+            const matches = [...op.insert.matchAll(regex)];
+            if (matches.length > 0) {
+              const newOps = [];
+              let str = op.insert;
+              matches.forEach((match) => {
+                const [code, lang, content] = match.slice(1);
+                const index = str.indexOf(code);
+                if (index > 0) {
+                  newOps.push({ insert: str.slice(0, index) });
+                }
+                newOps.push({
+                  insert: content.trim(),
+                  attributes: {
+                    "code-block": true,
+                    class: `language-${lang || "jsx"}`,
+                  },
+                });
+                str = str.slice(index + code.length);
+              });
+              if (str.length > 0) {
+                newOps.push({ insert: str });
+              }
+              return newOps;
+            }
+          }
+          return op;
+        });
+        delta.ops = ops.flat();
+        return delta;
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    if (quillRef.current) {
+      const editor = quillRef.current.getEditor();
+      const container = editor.container;
+      container.querySelectorAll(`pre.ql-syntax`).forEach((block) => {
+        Prism.highlightElement(block);
+      });
+    }
+  }, [formData.content]);
+
   return (
     <div className="p-3 max-w-3xl mx-auto min-h-screen">
       <h1 className="text-center text-3xl my-7 font-semibold">Create a post</h1>
@@ -111,6 +205,19 @@ const CreatePost = () => {
             <option value="javascript">JavaScript</option>
             <option value="reactjs">React.js</option>
             <option value="nextjs">Next.js</option>
+          </Select>
+          <Select
+            onChange={(e) =>
+              setFormData({ ...formData, languageType: e.target.value })
+            }
+          >
+            <option value="uncategorized">Language Type</option>
+            <option value="language-html">html</option>
+            <option value="language-css">css</option>
+            <option value="language-javascript">javascript</option>
+            <option value="language-jsx">jsx</option>
+            <option value="language-typescript">typescript</option>
+            <option value="language-tsx">tsx</option>
           </Select>
         </div>
         <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">
@@ -152,9 +259,10 @@ const CreatePost = () => {
           placeholder="Write something..."
           className="h-72 mb-12"
           required
-          onChange={(value) => {
-            setFormData({ ...formData, content: value });
-          }}
+          onChange={(value) => setFormData({ ...formData, content: value })}
+          modules={modules}
+          formats={formats}
+          ref={quillRef}
         />
         <Button type="submit" gradientDuoTone="purpleToPink">
           Publish

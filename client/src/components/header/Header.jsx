@@ -23,7 +23,6 @@ const Header = () => {
       setSearchTerm(searchTermFromUrl);
     }
   }, [location.search]);
-  // console.log(searchTerm);
 
   const handleLogOut = async () => {
     try {
@@ -125,6 +124,9 @@ const Header = () => {
         </Navbar.Link>
         <Navbar.Link as="div" active={path === "/project"}>
           <Link to="/project">Projects</Link>
+        </Navbar.Link>
+        <Navbar.Link as="div" active={path === "/project"}>
+          <Link to="/contact">Contact Us</Link>
         </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>

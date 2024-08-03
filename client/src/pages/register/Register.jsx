@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Alert, Button, Label, Spinner, TextInput } from "flowbite-react";
 import { Link, useNavigate } from "react-router-dom";
-// import { toast } from "react-toastify";
 import OAuth from "../../components/oAuth/OAuth";
 
 const Register = () => {

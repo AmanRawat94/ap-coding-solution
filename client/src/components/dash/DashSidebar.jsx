@@ -7,6 +7,7 @@ import {
   HiUser,
 } from "react-icons/hi";
 import { MdDashboard } from "react-icons/md";
+import { IoMdContacts } from "react-icons/io";
 import { FaComment } from "react-icons/fa";
 import { Link, useLocation } from "react-router-dom";
 import { logoutSuccess } from "../../redux/user/userSlice";
@@ -24,7 +25,6 @@ const DashSidebar = () => {
     if (tabFromUrl) {
       setTab(tabFromUrl);
     }
-    // console.log(tabFromUrl);
   }, [location.search]);
 
   const handleLogOut = async () => {
@@ -77,6 +77,17 @@ const DashSidebar = () => {
                 as="div"
               >
                 Posts
+              </Sidebar.Item>
+            </Link>
+          )}
+          {currentUser.isAdmin && (
+            <Link to="/dashboard?tab=contacts">
+              <Sidebar.Item
+                active={tab === "contacts"}
+                icon={IoMdContacts}
+                as="div"
+              >
+                Contacts
               </Sidebar.Item>
             </Link>
           )}

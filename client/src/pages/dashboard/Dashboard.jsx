@@ -7,6 +7,7 @@ import DashPosts from "../../components/dash/DashPosts";
 import DashUsers from "../../components/dash/DashUsers";
 import DashComments from "../../components/dash/DashComments";
 import DashboardComp from "../../components/dash/DashboardComp";
+import DashContacts from "../../components/dash/DashContacts";
 
 const Dashboard = () => {
   const location = useLocation();
@@ -18,7 +19,6 @@ const Dashboard = () => {
     if (tabFromUrl) {
       setTab(tabFromUrl);
     }
-    // console.log(tabFromUrl);
   }, [location.search]);
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
@@ -36,6 +36,8 @@ const Dashboard = () => {
       {tab === "comments" && <DashComments />}
       {/* dashboard */}
       {tab === "dashboard" && <DashboardComp />}
+      {/* contacts */}
+      {tab === "contacts" && <DashContacts />}
     </div>
   );
 };

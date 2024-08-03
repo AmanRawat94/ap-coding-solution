@@ -24,6 +24,10 @@ const postSchema = new Schema(
       type: String,
       default: "uncategorized",
     },
+    languageType: {
+      type: String,
+      default: "uncategorized",
+    },
     slug: {
       type: String,
       required: true,

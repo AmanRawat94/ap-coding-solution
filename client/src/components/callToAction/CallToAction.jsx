@@ -1,7 +1,10 @@
 import { Button } from "flowbite-react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import img from "../../assets/coding-banner.jpg";
 
 const CallToAction = () => {
+  const navigate = useNavigate();
   return (
     <div className="flex flex-col sm:flex-row p-3 border border-teal-500 justify-center items-center rounded-tl-3xl rounded-br-3xl">
       <div className="flex-1 justify-center flex flex-col">
@@ -10,11 +13,16 @@ const CallToAction = () => {
           Check out these fantastic free resources that let you work on
           unlimited projects!
         </p>
-        <Button gradientDuoTone="tealToLime">Learn more</Button>
+        <Button
+          onClick={() => navigate("/search?searchTerm=&sort=desc&category=")}
+          gradientDuoTone="tealToLime"
+        >
+          Learn more
+        </Button>
       </div>
 
       <div className="p-7 flex-1">
-        <img src="https://cyberhoot.com/wp-content/uploads/2020/07/Free-Courses-to-learn-JavaScript.jpg" />
+        <img src={img} />
       </div>
     </div>
   );

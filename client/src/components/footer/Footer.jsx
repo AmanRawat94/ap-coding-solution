@@ -19,9 +19,17 @@ const Footer = () => {
     const url = ``;
     window.open(url, "_blank");
   };
+  const handleYt = () => {
+    const url = `https://www.youtube.com/channel/UCJW0GwTVqyFpBE5RJv4JoRQ`;
+    window.open(url, "_blank");
+  };
+  const handleTelegram = () => {
+    const url = `https://t.me/apcodingsolution`;
+    window.open(url, "_blank");
+  };
 
   const handleInsta = () => {
-    const url = ``;
+    const url = `https://www.instagram.com/apcodingsolution?igsh=NTc4MTIwNjQ2YQ==`;
     window.open(url, "_blank");
   };
   const navigate = useNavigate();
@@ -31,7 +39,7 @@ const Footer = () => {
         <ul className="list-none flex items-center justify-center gap-4 mb-5">
           <li
             className="cursor-pointer text-xs transition-all duration-300 ease hover:text-pinky "
-            onClick={() => navigate("/termofuse")}
+            onClick={() => navigate("/termsofuse")}
           >
             Terms Of Use
           </li>
@@ -52,21 +60,11 @@ const Footer = () => {
             FAQ
           </li>
         </ul>
-        {/* <div className="text-xs opacity-50 text-white text-center max-w-3xl mb-5">
-          <p className="">© 2024, AP TECH CENTER. All rights reserved.</p>
-        </div> */}
+
         <div className="my-4">
           © 2024, AP Coding Solution. All rights reserved.
         </div>
-        {/* <p className=" mb-5">
-          <span className=" text-sm font-medium">Created by : </span>{" "}
-          <Link
-            className="text-sm text-blue-300"
-            onClick={redirectAPTechEnterprise}
-          >
-            AP Tech Enterprise
-          </Link>
-        </p> */}
+
         <div className=" my-4 w-full flex justify-around ">
           <div>
             <ul>
@@ -81,12 +79,12 @@ const Footer = () => {
                 </Link>
               </li>
               <li className="py-2">
-                <Link to="contact" className="text-base hover:text-pinky">
+                <Link to="/contact" className="text-base hover:text-pinky">
                   Contact
                 </Link>
               </li>
               <li className="py-2">
-                <Link to="contact" className="text-base hover:text-pinky">
+                <Link to="/project" className="text-base hover:text-pinky">
                   Projects
                 </Link>
               </li>
@@ -95,16 +93,22 @@ const Footer = () => {
           <div>
             <ul className="text-base ">
               <li className="py-2 hover:text-pinky">
-                <Link to="/">HTML</Link>
+                <Link to="/search?searchTerm=&sort=desc&category=html">
+                  HTML
+                </Link>
               </li>
               <li className="py-2 hover:text-pinky">
-                <Link to="/room2">CSS</Link>
+                <Link to="/search?searchTerm=&sort=desc&category=css">CSS</Link>
               </li>
               <li className="py-2 hover:text-pinky">
-                <Link to="room3">JavaScript</Link>
+                <Link to="/search?searchTerm=&sort=desc&category=javascript">
+                  JavaScript
+                </Link>
               </li>
               <li className="py-2 hover:text-pinky">
-                <Link to="room4">Room 4</Link>
+                <Link to="/search?searchTerm=&sort=desc&category=reactjs">
+                  React js
+                </Link>
               </li>
             </ul>
           </div>
@@ -113,17 +117,26 @@ const Footer = () => {
           <span className="w-12 h-12 rounded-full bg-socialiconbg flex items-center justify-center cursor-pointer transition-all duration-300 ease hover:text-pinky hover:shadow-custom ">
             <FaFacebookF />
           </span>
-          <span className="w-12 h-12 rounded-full bg-socialiconbg flex items-center justify-center cursor-pointer transition-all duration-300 ease hover:text-pinky hover:shadow-custom">
+          <span
+            onClick={handleInsta}
+            className="w-12 h-12 rounded-full bg-socialiconbg flex items-center justify-center cursor-pointer transition-all duration-300 ease hover:text-pinky hover:shadow-custom"
+          >
             <FaInstagram />
           </span>
-          <span className="w-12 h-12 rounded-full bg-socialiconbg flex items-center justify-center cursor-pointer transition-all duration-300 ease hover:text-pinky hover:shadow-custom">
+          <span
+            onClick={handleYt}
+            className="w-12 h-12 rounded-full bg-socialiconbg flex items-center justify-center cursor-pointer transition-all duration-300 ease hover:text-pinky hover:shadow-custom"
+          >
             <FaYoutube />
+          </span>
+          <span
+            onClick={handleTelegram}
+            className="w-12 h-12 bg-socialiconbg flex rounded-full items-center justify-center cursor-pointer transition-all duration-300 ease hover:text-pinky hover:shadow-custom "
+          >
+            <FaTelegramPlane />
           </span>
           <span className="w-12 h-12 rounded-full bg-socialiconbg flex items-center justify-center cursor-pointer transition-all duration-300 ease hover:text-pinky hover:shadow-custom">
             <FaTwitter />
-          </span>
-          <span className="w-12 h-12 bg-socialiconbg flex rounded-full items-center justify-center cursor-pointer transition-all duration-300 ease hover:text-pinky hover:shadow-custom ">
-            <FaTelegramPlane />
           </span>
         </div>
       </div>

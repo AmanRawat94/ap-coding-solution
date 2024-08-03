@@ -33,7 +33,6 @@ const DashUsers = () => {
       fetchUsers();
     }
   }, [currentUser._id]);
-  // console.log(userPosts);
 
   const handleShowMore = async () => {
     const startIndex = users.length;

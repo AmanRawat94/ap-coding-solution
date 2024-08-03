@@ -17,7 +17,6 @@ const OAuth = () => {
     provider.setCustomParameters({ prompt: "select_account" });
     try {
       const resultsFormGoogle = await signInWithPopup(auth, provider);
-      //   console.log(resultsFormGoogle);
       const res = await fetch("/api/auth/google", {
         method: "POST",
         headers: {

@@ -2,11 +2,15 @@ import React, { useEffect, useState } from "react";
 import PostCard from "../../components/postCard/PostCard";
 import CallToAction from "../../components/callToAction/CallToAction";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
+    toast(
+      "Welcome to AP Coding Solution! If you encounter any issues, please try logging in again."
+    );
     const fetchPosts = async () => {
       const res = await fetch("/api/post/getPosts");
       const data = await res.json();

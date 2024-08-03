@@ -1,6 +1,12 @@
 import { Alert, Button, FileInput, Select, TextInput } from "flowbite-react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import Prism from "prismjs";
+import "prismjs/themes/prism.css";
+import "prismjs/components/prism-markup"; // HTML
+import "prismjs/components/prism-css"; // CSS
+import "prismjs/components/prism-javascript"; // JavaScript
+import "prismjs/components/prism-jsx"; // React (JSX)
 import {
   getDownloadURL,
   getStorage,
@@ -8,7 +14,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { app } from "../../firebase";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { useNavigate, useParams } from "react-router-dom";
@@ -22,6 +28,7 @@ const UpdatePost = () => {
   const [formData, setFormData] = useState({});
   const [publishError, setPublishError] = useState(null);
   const { postId } = useParams();
+  const quillRef = useRef(null);
 
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
@@ -31,12 +38,8 @@ const UpdatePost = () => {
       const fetchPost = async () => {
         const res = await fetch(`/api/post/getposts?postId=${postId}`);
         const data = await res.json();
-        console.log("res", res);
-        console.log("data", data);
         if (!res.ok) {
-          console.log(data.message);
           setPublishError(data.message);
-
           return;
         }
         if (res.ok) {
@@ -91,7 +94,7 @@ const UpdatePost = () => {
     e.preventDefault();
     try {
       const res = await fetch(
-        `/api/post/updatepost/${formData._id}/${currentUser._id}`,
+        `/api/post/updatepost/${postId}/${currentUser._id}`,
         {
           method: "PUT",
           headers: {
@@ -118,6 +121,94 @@ const UpdatePost = () => {
       setPublishError("Something went wrong");
     }
   };
+
+  const modules = {
+    toolbar: [
+      [{ header: "1" }, { header: "2" }, { font: [] }],
+      [{ size: [] }],
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
+      ["link", "image", "video"],
+      ["clean"],
+      [{ "code-block": "code-block" }],
+    ],
+  };
+
+  const formats = [
+    "header",
+    "font",
+    "size",
+    "bold",
+    "italic",
+    "underline",
+    "strike",
+    "blockquote",
+    "list",
+    "bullet",
+    "indent",
+    "link",
+    "image",
+    "video",
+    "code-block",
+  ];
+
+  useEffect(() => {
+    if (quillRef.current) {
+      const editor = quillRef.current.getEditor();
+      editor.clipboard.addMatcher(Node.TEXT_NODE, (node, delta) => {
+        const regex = /```(\w+)?\n([\s\S]*?)```/g;
+        const ops = delta.ops.map((op) => {
+          if (typeof op.insert === "string") {
+            const matches = [...op.insert.matchAll(regex)];
+            if (matches.length > 0) {
+              const newOps = [];
+              let str = op.insert;
+              matches.forEach((match) => {
+                const [code, lang, content] = match.slice(1);
+                const index = str.indexOf(code);
+                if (index > 0) {
+                  newOps.push({ insert: str.slice(0, index) });
+                }
+                newOps.push({
+                  insert: content.trim(),
+                  attributes: {
+                    "code-block": true,
+                    class: `language-${lang || "jsx"}`,
+                  },
+                });
+                str = str.slice(index + code.length);
+              });
+              if (str.length > 0) {
+                newOps.push({ insert: str });
+              }
+              return newOps;
+            }
+          }
+          return op;
+        });
+        delta.ops = ops.flat();
+        return delta;
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    // const languageType = formData.languageType;
+    if (quillRef.current) {
+      const editor = quillRef.current.getEditor();
+      const container = editor.container;
+      container.querySelectorAll(`pre.ql-syntax`).forEach((block) => {
+        Prism.highlightElement(block);
+      });
+    }
+  }, [formData.content]);
+  // console.log("content", formData.content);
+
   return (
     <div className="p-3 max-w-3xl mx-auto min-h-screen">
       <h1 className="text-center text-3xl my-7 font-semibold">Update post</h1>
@@ -191,6 +282,9 @@ const UpdatePost = () => {
           onChange={(value) => {
             setFormData({ ...formData, content: value });
           }}
+          modules={modules}
+          formats={formats}
+          ref={quillRef}
         />
         <Button type="submit" gradientDuoTone="purpleToPink">
           Update post

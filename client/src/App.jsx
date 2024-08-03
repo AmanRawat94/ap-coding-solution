@@ -15,6 +15,9 @@ import UpdatePost from "./pages/updatePost/UpdatePost";
 import PostPage from "./pages/postPage/PostPage";
 import ScrollToTop from "./components/scrollToTop/ScrollToTop";
 import Search from "./pages/search/Search";
+import TermsOfUse from "./pages/termsOfUse/TermsOfUse";
+import PrivacyPolicy from "./pages/privacyPolicy/PrivacyPolicy";
+import Contact from "./pages/contact/Contact";
 
 const App = () => {
   return (
@@ -30,6 +33,9 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/termsofuse" element={<TermsOfUse />} />
+          <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+          <Route path="/contact" element={<Contact />} />
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<Dashboard />} />
           </Route>

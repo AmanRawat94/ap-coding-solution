@@ -37,7 +37,6 @@ const DashProfile = () => {
   const profilePickerRef = useRef();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
-  // console.log(imageFileUploadingProgress, imageFileUploadError);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -45,7 +44,6 @@ const DashProfile = () => {
       setImageFile(file);
       setImageFileUrl(URL.createObjectURL(file));
     }
-    // console.log(imageFile, imageFileUrl);
   };
 
   useEffect(() => {
@@ -106,7 +104,6 @@ const DashProfile = () => {
     }
     try {
       dispatch(updateStart());
-      console.log("connecting user update with server");
       const res = await fetch(`/api/user/update/${currentUser._id}`, {
         method: "PUT",
         headers: {
@@ -114,7 +111,6 @@ const DashProfile = () => {
         },
         body: JSON.stringify(formData),
       });
-      console.log("res from server for user update", res);
       const data = await res.json();
       if (!res.ok) {
         dispatch(updateFailure(data.message));
