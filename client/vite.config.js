@@ -11,4 +11,8 @@ export default defineConfig({
     },
   },
   plugins: [react()],
+  preview: {
+    host: true, // Allows access from external IPs
+    port: 4173, // Specify the port if needed
+  },
 });
