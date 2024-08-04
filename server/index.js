@@ -8,7 +8,7 @@ const postRoutes = require("./routes/post-route.js");
 const commentRoutes = require("./routes/comment-route.js");
 const contactRoutes = require("./routes/contact-route.js");
 const cookieParser = require("cookie-parser");
-import path from "path";
+const path = require("path");
 
 const __dirname = path.resolve();
 
