@@ -1,11 +1,17 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export default defineConfig({
+  build: {
+    chunkSizeWarningLimit: 1000, // Increase the warning limit to 1000 KB
+  },
   server: {
     proxy: {
       "/api": {
-        target: import.meta.env.VITE_API_BASE_URL,
+        target: process.env.VITE_API_BASE_URL,
         secure: false,
       },
     },
