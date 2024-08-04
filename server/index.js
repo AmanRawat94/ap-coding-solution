@@ -10,7 +10,7 @@ const contactRoutes = require("./routes/contact-route.js");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 
-// const __dirname = path.resolve();
+const __dirname = path.resolve();
 
 app.use(express.json());
 app.use(cookieParser());
@@ -21,11 +21,11 @@ app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
 app.use("/api/contact", contactRoutes);
 
-// app.use(express.static(path.join(__dirname, "/client/dist")));
+app.use(express.static(path.join(__dirname, "/client/dist")));
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
-// });
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 
 const PORT = 3000;
 connectDb().then(() => {
