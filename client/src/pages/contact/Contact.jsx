@@ -16,7 +16,7 @@ const Contact = () => {
       return setErrorMessage("Please fill out all fields.");
     }
     try {
-      const res = await fetch("/api/contact/create", {
+      const res = await fetch(`/api/contact/create`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(contactData),

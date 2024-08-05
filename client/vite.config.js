@@ -6,7 +6,7 @@ dotenv.config();
 
 export default defineConfig({
   build: {
-    chunkSizeWarningLimit: 1000, // Increase the warning limit to 1000 KB
+    chunkSizeWarningLimit: 1500, // Increase the warning limit to 1000 KB
   },
   server: {
     proxy: {

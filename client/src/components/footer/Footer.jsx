@@ -3,11 +3,9 @@ import {
   FaFacebookF,
   FaInstagram,
   FaTwitter,
-  FaLinkedin,
   FaTelegramPlane,
   FaYoutube,
 } from "react-icons/fa";
-import { CiLocationOn } from "react-icons/ci";
 import { Link, useNavigate } from "react-router-dom";
 
 const Footer = () => {

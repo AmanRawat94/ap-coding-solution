@@ -1,8 +1,6 @@
 import { Button, Modal, Table } from "flowbite-react";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { IoIosAddCircleOutline } from "react-icons/io";
 import { MdDeleteOutline } from "react-icons/md";
 import { HiOutlineExclamationCircle } from "react-icons/hi";
 import { FaCheckCircle, FaTimesCircle } from "react-icons/fa";

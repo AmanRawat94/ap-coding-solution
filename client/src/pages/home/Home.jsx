@@ -12,7 +12,7 @@ const Home = () => {
       "Welcome to AP Coding Solution! If you encounter any issues, please try logging in again."
     );
     const fetchPosts = async () => {
-      const res = await fetch("/api/post/getPosts");
+      const res = await fetch(`/api/post/getPosts`);
       const data = await res.json();
       setPosts(data.posts);
     };

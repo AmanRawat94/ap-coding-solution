@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Button, Modal, Textarea, TextInput } from "flowbite-react";
+import { Button, Modal, Textarea } from "flowbite-react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -9,7 +9,6 @@ import { HiOutlineExclamationCircle } from "react-icons/hi";
 const CommentSection = ({ postId }) => {
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
-  //   console.log(currentUser.username);
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
   const [commentError, setCommentError] = useState(null);
