@@ -10,7 +10,7 @@ const contactRoutes = require("./routes/contact-route.js");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 
 app.use(express.json());
 app.use(cookieParser());
