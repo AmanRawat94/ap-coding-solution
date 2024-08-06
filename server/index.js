@@ -9,9 +9,11 @@ const commentRoutes = require("./routes/comment-route.js");
 const contactRoutes = require("./routes/contact-route.js");
 const cookieParser = require("cookie-parser");
 const path = require("path");
+const cors = require("cors");
 
 // const __dirname = path.resolve();
 
+app.use(cors()); // This will allow all origins
 app.use(express.json());
 app.use(cookieParser());
 
