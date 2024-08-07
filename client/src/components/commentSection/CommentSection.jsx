@@ -23,17 +23,20 @@ const CommentSection = ({ postId }) => {
     }
 
     try {
-      const res = await fetch(`/api/comment/create`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          content: comment,
-          postId,
-          userId: currentUser._id,
-        }),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/comment/create`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            content: comment,
+            postId,
+            userId: currentUser._id,
+          }),
+        }
+      );
 
       const data = await res.json();
 
@@ -54,7 +57,11 @@ const CommentSection = ({ postId }) => {
   useEffect(() => {
     const getComments = async () => {
       try {
-        const res = await fetch(`/api/comment/getPostComments/${postId}`);
+        const res = await fetch(
+          `${
+            import.meta.env.VITE_API_URL
+          }/api/comment/getPostComments/${postId}`
+        );
         if (res.ok) {
           const data = await res.json();
           setComments(data);
@@ -73,9 +80,12 @@ const CommentSection = ({ postId }) => {
         navigate("/login");
         return;
       }
-      const res = await fetch(`/api/comment/likeComment/${commentId}`, {
-        method: "PUT",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/comment/likeComment/${commentId}`,
+        {
+          method: "PUT",
+        }
+      );
       if (res.ok) {
         const data = await res.json();
         setComments(
@@ -110,9 +120,14 @@ const CommentSection = ({ postId }) => {
         navigate("/login");
         return;
       }
-      const res = await fetch(`/api/comment/deleteComment/${commentId}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/comment/deleteComment/${commentId}`,
+        {
+          method: "DELETE",
+        }
+      );
       if (res.ok) {
         const data = await res.json();
         setComments(comments.filter((comment) => comment._id !== commentId));

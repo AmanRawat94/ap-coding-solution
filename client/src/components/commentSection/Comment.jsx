@@ -9,7 +9,6 @@ const Comment = ({ comment, onLike, onEdit, onDelete }) => {
   const [user, setUser] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
-  //   console.log(user);
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -17,7 +16,6 @@ const Comment = ({ comment, onLike, onEdit, onDelete }) => {
           `${import.meta.env.VITE_API_URL}/api/user/${comment.userId}`
         );
         const data = await res.json();
-        // console.log(res);
         if (res.ok) {
           setUser(data);
         }

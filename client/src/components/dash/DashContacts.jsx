@@ -13,7 +13,9 @@ const DashContacts = () => {
   useEffect(() => {
     const fetchContacts = async () => {
       try {
-        const res = await fetch(`/api/contact/getcontact`);
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/contact/getcontact`
+        );
         const data = await res.json();
 
         if (res.ok) {
@@ -35,7 +37,9 @@ const DashContacts = () => {
     const startIndex = contacts.length;
     try {
       const res = await fetch(
-        `/api/contact/getcontact?startIndex=${startIndex}`
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/contact/getcontact?startIndex=${startIndex}`
       );
       const data = await res.json();
       if (res.ok) {
@@ -53,7 +57,9 @@ const DashContacts = () => {
     setShowModal(false);
     try {
       const res = await fetch(
-        `/api/contact/deletecontact/${contactIdToDelete}`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/contact/deletecontact/${contactIdToDelete}`,
         {
           method: "DELETE",
         }

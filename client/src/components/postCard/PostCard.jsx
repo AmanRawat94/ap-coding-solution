@@ -1,7 +1,9 @@
+import { Button } from "flowbite-react";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const PostCard = ({ post, wid }) => {
+  const navigate = useNavigate();
   return (
     <div
       className={`group relative w-full items-center border border-teal-500 hover:border-2 h-[400px] overflow-hidden rounded-lg ${wid} transition-all`}
@@ -16,12 +18,19 @@ const PostCard = ({ post, wid }) => {
       <div className="p-3 flex flex-col gap-2">
         <p className="text-lg font-semibold line-clamp-2">{post.title}</p>
         <span className="italic text-sm">{post.category}</span>
-        <Link
+        {/* <Link
           to={`/post/${post.slug}`}
           className="z-10 group-hover:bottom-0 absolute bottom-[-200px] left-0 right-0 border border-teal-500 text-teal-500 hover:bg-teal-500 hover:text-white transition-all duration-300 text-center py-2 rounded-md !rounded-tl-none m-2"
         >
           Read post
-        </Link>
+        </Link> */}
+        <Button
+          onClick={() => navigate(`/post/${post.slug}`)}
+          className="z-10 group-hover:bottom-0 absolute bottom-[-200px] left-0 right-0      transition-all duration-300 text-center py-2 rounded-md !rounded-tl-none m-2"
+          gradientDuoTone="greenToBlue"
+        >
+          Read post
+        </Button>
       </div>
     </div>
   );

@@ -16,11 +16,14 @@ const Contact = () => {
       return setErrorMessage("Please fill out all fields.");
     }
     try {
-      const res = await fetch(`/api/contact/create`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(contactData),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/contact/create`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(contactData),
+        }
+      );
       const data = await res.json();
       if (data.success === false) {
         return;

@@ -24,7 +24,7 @@ const Home = () => {
     <div>
       <div className="flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto ">
         <h1 className="text-3xl font-bold lg:text-6xl">
-          Welcome to AP Coding Solutions
+          Welcome to AP Coding Solution
         </h1>
         <p className="text-gray-500 dark:text-white text-xs sm:text-sm">
           Welcome to AP Coding Solution, your ultimate destination for mastering

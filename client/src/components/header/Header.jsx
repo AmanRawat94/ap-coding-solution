@@ -26,9 +26,12 @@ const Header = () => {
 
   const handleLogOut = async () => {
     try {
-      const res = await fetch(`/api/user/logout`, {
-        method: "POST",
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/user/logout`,
+        {
+          method: "POST",
+        }
+      );
       const data = await res.json();
 
       if (!res.ok) {
@@ -54,7 +57,7 @@ const Header = () => {
         to="/"
         className="self-center whitespace-nowrap text-sm sm:text-xl font-semibold "
       >
-        <span className="px-2 py-1">AP Coding Solutions</span>
+        <span className="px-2 py-1">AP Coding Solution</span>
       </Link>
       <form onSubmit={handleSubmit}>
         <TextInput
@@ -68,15 +71,15 @@ const Header = () => {
       </form>
       <Button
         onClick={() => navigate("/search")}
-        className="w-12 h-10 lg:hidden"
+        className="w-8 h-8 sm:w-10 sm:h-10 flex items-center lg:hidden"
         color="gray"
         pill
       >
         <AiOutlineSearch />
       </Button>
-      <div className="flex gap-2 md:order-2">
+      <div className="flex items-center gap-2 md:order-2">
         <Button
-          className="w-12 h-10  rounded-full"
+          className="w-8 h-8 sm:w-10 sm:h-10 flex items-center rounded-full"
           color="gray"
           onClick={() => dispatch(toggleTheme())}
         >
@@ -125,7 +128,7 @@ const Header = () => {
         <Navbar.Link as="div" active={path === "/project"}>
           <Link to="/project">Projects</Link>
         </Navbar.Link>
-        <Navbar.Link as="div" active={path === "/project"}>
+        <Navbar.Link as="div" active={path === "/contact"}>
           <Link to="/contact">Contact Us</Link>
         </Navbar.Link>
       </Navbar.Collapse>

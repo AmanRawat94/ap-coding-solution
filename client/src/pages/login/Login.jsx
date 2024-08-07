@@ -24,12 +24,15 @@ const Login = () => {
     }
     try {
       dispatch(signInStart());
-      const res = await fetch(`/api/auth/login`, {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/login`,
+        {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await res.json();
       if (data.success === false) {
         dispatch(signInFailure(data.message));
@@ -49,7 +52,7 @@ const Login = () => {
         <div className="flex-1">
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <div className="flex justify-center text-4xl mb-5 sm:text-5xl">
-              Sign In
+              Login
             </div>
             <div>
               <Label value="Your email" />

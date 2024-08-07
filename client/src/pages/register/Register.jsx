@@ -19,11 +19,14 @@ const Register = () => {
     try {
       setLoading(true);
       setErrorMessage(null);
-      const res = await fetch(`/api/auth/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/auth/register`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
       const data = await res.json();
       if (data.success === false) {
         return setErrorMessage(data.message);
@@ -43,7 +46,7 @@ const Register = () => {
         <div className="flex-1">
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <div className="flex justify-center text-4xl mb-5 sm:text-5xl">
-              Sign Up
+              Register
             </div>
             <div>
               <Label value="Your username" />

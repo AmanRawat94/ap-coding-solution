@@ -35,7 +35,9 @@ const Search = () => {
     const fetchPosts = async () => {
       setLoading(true);
       const searchQuery = urlParams.toString();
-      const res = await fetch(`/api/post/getposts?${searchQuery}`);
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/post/getposts?${searchQuery}`
+      );
       if (!res.ok) {
         setLoading(false);
         return;
@@ -84,7 +86,9 @@ const Search = () => {
     const urlParams = new URLSearchParams(location.search);
     urlParams.set("startIndex", startIndex);
     const searchQuery = urlParams.toString();
-    const res = await fetch(`/api/post/getposts?${searchQuery}`);
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/post/getposts?${searchQuery}`
+    );
     if (!res.ok) {
       return;
     }
@@ -138,7 +142,7 @@ const Search = () => {
               <option value="nextjs">Next.js</option>
             </Select>
           </div>
-          <Button type="submit" outline gradientDuoTone="purpleToPink">
+          <Button type="submit" gradientDuoTone="tealToLime">
             Apply Filters
           </Button>
         </form>
