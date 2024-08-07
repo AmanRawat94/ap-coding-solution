@@ -12,8 +12,12 @@ const path = require("path");
 const cors = require("cors");
 
 // const __dirname = path.resolve();
+const corsOptions = {
+  origin: "https://www.apcodingsolution.com",
+  credentials: true,
+};
 
-app.use(cors()); // This will allow all origins
+app.use(cors(corsOptions)); // This will allow all origins
 app.use(express.json());
 app.use(cookieParser());
 
