@@ -29,6 +29,7 @@ const CreatePost = () => {
   const [publishError, setPublishError] = useState(null);
   const quillRef = useRef(null);
   const navigate = useNavigate();
+  const token = localStorage.getItem("access_token");
 
   const handleUpdloadImage = async () => {
     try {
@@ -76,6 +77,7 @@ const CreatePost = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(formData),
         }
@@ -260,7 +262,7 @@ const CreatePost = () => {
         <ReactQuill
           theme="snow"
           placeholder="Write something..."
-          className="h-72 mb-12"
+          className="h-72 mb-12 "
           required
           onChange={(value) => setFormData({ ...formData, content: value })}
           modules={modules}

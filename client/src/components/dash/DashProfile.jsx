@@ -37,6 +37,7 @@ const DashProfile = () => {
   const profilePickerRef = useRef();
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const token = localStorage.getItem("access_token");
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -110,6 +111,7 @@ const DashProfile = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(formData),
         }
@@ -136,6 +138,10 @@ const DashProfile = () => {
         `${import.meta.env.VITE_API_URL}/api/user/delete/${currentUser._id}`,
         {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       const data = await res.json();
@@ -144,6 +150,7 @@ const DashProfile = () => {
         dispatch(deleteUserFailure(data.message));
       } else {
         dispatch(deleteUserSuccess(data));
+        localStorage.removeItem("access_token");
       }
     } catch (error) {
       dispatch(deleteUserFailure(error.message));
@@ -164,6 +171,7 @@ const DashProfile = () => {
         console.log(data.message);
       } else {
         dispatch(logoutSuccess());
+        localStorage.removeItem("access_token");
       }
     } catch (error) {
       console.log(error.message);

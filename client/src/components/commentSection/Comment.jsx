@@ -9,6 +9,8 @@ const Comment = ({ comment, onLike, onEdit, onDelete }) => {
   const [user, setUser] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(comment.content);
+  const token = localStorage.getItem("access_token");
+
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -41,6 +43,7 @@ const Comment = ({ comment, onLike, onEdit, onDelete }) => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             content: editedContent,

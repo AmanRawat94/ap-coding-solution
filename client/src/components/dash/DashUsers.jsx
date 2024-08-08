@@ -11,11 +11,20 @@ const DashUsers = () => {
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [userIdToDelete, setUserIdToDelete] = useState("");
+  const token = localStorage.getItem("access_token");
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/user/getusers`
+          `${import.meta.env.VITE_API_URL}/api/user/getusers`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         const data = await res.json();
 
@@ -40,7 +49,14 @@ const DashUsers = () => {
       const res = await fetch(
         `${
           import.meta.env.VITE_API_URL
-        }/api/user/getusers?startIndex=${startIndex}`
+        }/api/user/getusers?startIndex=${startIndex}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       const data = await res.json();
       if (res.ok) {
@@ -61,6 +77,10 @@ const DashUsers = () => {
         `${import.meta.env.VITE_API_URL}/api/user/delete/${userIdToDelete}`,
         {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       const data = await res.json();

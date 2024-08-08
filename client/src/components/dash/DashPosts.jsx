@@ -12,11 +12,20 @@ const DashPosts = () => {
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [postIdToDelete, setPostIdToDelete] = useState("");
+  const token = localStorage.getItem("access_token");
+
   useEffect(() => {
     const fetchPosts = async () => {
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/post/getposts`
+          `${import.meta.env.VITE_API_URL}/api/post/getposts`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         const data = await res.json();
 
@@ -62,6 +71,10 @@ const DashPosts = () => {
         `${import.meta.env.VITE_API_URL}/api/post/deletepost/${postIdToDelete}`,
         {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       const data = await res.json();

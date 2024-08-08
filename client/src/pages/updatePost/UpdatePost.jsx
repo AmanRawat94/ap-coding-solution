@@ -20,6 +20,7 @@ import "react-circular-progressbar/dist/styles.css";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+const token = localStorage.getItem("access_token");
 
 const UpdatePost = () => {
   const [file, setFile] = useState(null);
@@ -101,6 +102,7 @@ const UpdatePost = () => {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(formData),
         }

@@ -10,11 +10,20 @@ const DashContacts = () => {
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [contactIdToDelete, setContactIdToDelete] = useState("");
+  const token = localStorage.getItem("access_token");
+
   useEffect(() => {
     const fetchContacts = async () => {
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/contact/getcontact`
+          `${import.meta.env.VITE_API_URL}/api/contact/getcontact`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         const data = await res.json();
 
@@ -34,14 +43,27 @@ const DashContacts = () => {
   }, [currentUser._id]);
 
   const handleShowMore = async () => {
+    // console.log("type", typeof contacts);
+
     const startIndex = contacts.length;
+    console.log("startindex", startIndex);
+
     try {
       const res = await fetch(
         `${
           import.meta.env.VITE_API_URL
-        }/api/contact/getcontact?startIndex=${startIndex}`
+        }/api/contact/getcontact?startIndex=${startIndex}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       const data = await res.json();
+      console.log("API response", data);
+
       if (res.ok) {
         setContacts((prev) => [...prev, ...data.contacts]);
         if (data.contacts.length < 9) {
@@ -62,6 +84,10 @@ const DashContacts = () => {
         }/api/contact/deletecontact/${contactIdToDelete}`,
         {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       const data = await res.json();

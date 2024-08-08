@@ -34,7 +34,8 @@ const OAuth = () => {
       );
       const data = await res.json();
       if (res.ok) {
-        dispatch(signInSuccess(data));
+        localStorage.setItem("access_token", data.token);
+        dispatch(signInSuccess(data.rest));
         navigate("/");
       }
     } catch (error) {

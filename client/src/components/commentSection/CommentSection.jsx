@@ -14,6 +14,7 @@ const CommentSection = ({ postId }) => {
   const [commentError, setCommentError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [commentToDelete, setCommentToDelete] = useState(false);
+  const token = localStorage.getItem("access_token");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,6 +30,7 @@ const CommentSection = ({ postId }) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({
             content: comment,
@@ -84,6 +86,10 @@ const CommentSection = ({ postId }) => {
         `${import.meta.env.VITE_API_URL}/api/comment/likeComment/${commentId}`,
         {
           method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       if (res.ok) {
@@ -126,6 +132,10 @@ const CommentSection = ({ postId }) => {
         }/api/comment/deleteComment/${commentId}`,
         {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       if (res.ok) {

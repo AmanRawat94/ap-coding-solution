@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 const Contact = () => {
   const navigate = useNavigate();
   const [contactData, setContactData] = useState({});
+  const token = localStorage.getItem("access_token");
+
   const handleChange = (e) => {
     setContactData({ ...contactData, [e.target.id]: e.target.value.trim() });
   };
@@ -20,7 +22,10 @@ const Contact = () => {
         `${import.meta.env.VITE_API_URL}/api/contact/create`,
         {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
           body: JSON.stringify(contactData),
         }
       );
@@ -37,11 +42,14 @@ const Contact = () => {
     }
   };
   return (
-    <div className="max-w-6xl min-h-screen mx-auto flex items-center justify-center px-7">
+    <div className="max-w-6xl min-h-screen mx-auto flex pt-12 justify-center px-7">
       <form
         onSubmit={handleSubmit}
         className="flex max-w-md w-full flex-col gap-4"
       >
+        <div className="flex justify-center text-4xl mb-5 sm:text-5xl">
+          Contact Us
+        </div>
         <div>
           <div className="mb-2 block">
             <Label htmlFor="email" value="Email" />

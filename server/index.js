@@ -13,13 +13,14 @@ const cors = require("cors");
 
 // const __dirname = path.resolve();
 const corsOptions = {
-  origin: "https://www.apcodingsolution.com",
+  origin: "http://localhost:5173",
+  // origin: "https://www.apcodingsolution.com",
   credentials: true,
 };
 
-app.use(cors(corsOptions)); // This will allow all origins
-app.use(express.json());
+app.use(cors(corsOptions));
 app.use(cookieParser());
+app.use(express.json());
 
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
@@ -27,11 +28,11 @@ app.use("/api/post", postRoutes);
 app.use("/api/comment", commentRoutes);
 app.use("/api/contact", contactRoutes);
 
-app.use(express.static(path.join(__dirname, "/client/dist")));
+// app.use(express.static(path.join(__dirname, "/client/dist")));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
-});
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+// });
 
 const PORT = 3000;
 connectDb().then(() => {

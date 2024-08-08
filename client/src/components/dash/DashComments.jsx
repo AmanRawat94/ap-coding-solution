@@ -10,11 +10,20 @@ const DashComments = () => {
   const [showMore, setShowMore] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [commentIdToDelete, setCommentIdToDelete] = useState("");
+  const token = localStorage.getItem("access_token");
+
   useEffect(() => {
     const fetchComments = async () => {
       try {
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/comment/getcomments`
+          `${import.meta.env.VITE_API_URL}/api/comment/getcomments`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
         const data = await res.json();
         if (res.ok) {
@@ -38,7 +47,14 @@ const DashComments = () => {
       const res = await fetch(
         `${
           import.meta.env.VITE_API_URL
-        }/api/comment/getcomments?startIndex=${startIndex}`
+        }/api/comment/getcomments?startIndex=${startIndex}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
       const data = await res.json();
       if (res.ok) {
@@ -61,6 +77,10 @@ const DashComments = () => {
         }/api/comment/deleteComment/${commentIdToDelete}`,
         {
           method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       const data = await res.json();

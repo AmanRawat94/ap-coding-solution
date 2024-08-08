@@ -58,12 +58,7 @@ const login = async (req, res, next) => {
     );
 
     const { password: pass, ...rest } = validUser._doc;
-    res
-      .status(200)
-      .cookie("access_token", token, {
-        httpOnly: true,
-      })
-      .json(rest);
+    res.status(200).json({ rest, token });
   } catch (error) {
     next(error);
   }
@@ -81,13 +76,17 @@ const google = async (req, res, next) => {
           expiresIn: "30d",
         }
       );
+
       const { password, ...rest } = user._doc;
-      res
-        .status(200)
-        .cookie("access_token", token, {
-          httpOnly: true,
-        })
-        .json(rest);
+      res.status(200).json({ rest, token });
+      // res
+      //   .status(200)
+      //   .cookie("access_token", token, {
+      //     httpOnly: true,
+      //     secure: false,
+      //     sameSite: "None",
+      //   })
+      //   .json(rest);
     } else {
       const generatedPassword =
         Math.random().toString(36).slice(-8) +
@@ -109,13 +108,17 @@ const google = async (req, res, next) => {
           expiresIn: "30d",
         }
       );
+
       const { password, ...rest } = newUser._doc;
-      res
-        .status(200)
-        .cookie("access_token", token, {
-          httpOnly: true,
-        })
-        .json(rest);
+      res.status(200).json({ rest, token });
+      // res
+      //   .status(200)
+      //   .cookie("access_token", token, {
+      //     httpOnly: true,
+      //     secure: false,
+      //     sameSite: "None",
+      //   })
+      //   .json(rest);
     }
   } catch (error) {
     next(error);
