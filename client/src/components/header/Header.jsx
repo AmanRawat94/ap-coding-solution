@@ -38,6 +38,7 @@ const Header = () => {
         console.log(data.message);
       } else {
         dispatch(logoutSuccess());
+        localStorage.removeItem("access_token");
       }
     } catch (error) {
       console.log(error.message);
