@@ -95,8 +95,7 @@ const Comment = ({ comment, onLike, onEdit, onDelete }) => {
               <Button
                 type="button"
                 size="sm"
-                gradientDuoTone="purpleToBlue"
-                outline
+                gradientMonochrome="failure"
                 onClick={() => setIsEditing(false)}
               >
                 Cancel

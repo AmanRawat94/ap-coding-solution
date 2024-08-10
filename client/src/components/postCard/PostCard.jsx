@@ -26,10 +26,10 @@ const PostCard = ({ post, wid }) => {
         </Link> */}
         <Button
           onClick={() => navigate(`/post/${post.slug}`)}
-          className="z-10 group-hover:bottom-0 absolute bottom-[-200px] left-0 right-0      transition-all duration-300 text-center py-2 rounded-md !rounded-tl-none m-2"
+          className="z-10  group-hover:bottom-0 absolute bottom-[-200px] left-0 right-0      transition-all duration-300 text-center py-2 rounded-md !rounded-tl-none m-2"
           gradientDuoTone="greenToBlue"
         >
-          Read post
+          <p className="text-xl">Read post</p>
         </Button>
       </div>
     </div>

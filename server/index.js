@@ -14,7 +14,7 @@ const cors = require("cors");
 // const __dirname = path.resolve();
 const corsOptions = {
   origin: ["https://www.apcodingsolution.com", "https://apcodingsolution.com"],
-  //origin: "https://www.apcodingsolution.com",
+  // origin: "http://localhost:5173",
   credentials: true,
 };
 

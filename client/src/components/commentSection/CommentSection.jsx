@@ -184,12 +184,7 @@ const CommentSection = ({ postId }) => {
             onChange={(e) => setComment(e.target.value)}
             value={comment}
           />
-          <Button
-            className="mt-4 "
-            outline
-            type="submit"
-            gradientDuoTone="greenToBlue"
-          >
+          <Button className="mt-4 " type="submit" gradientDuoTone="greenToBlue">
             Submit
           </Button>
         </form>

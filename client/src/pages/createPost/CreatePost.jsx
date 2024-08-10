@@ -101,7 +101,8 @@ const CreatePost = () => {
 
   const modules = {
     toolbar: [
-      [{ header: "1" }, { header: "2" }, { font: [] }],
+      [{ header: [1, 2, 3, 4, 5, 6, false] }], // Include h1, h2, h3, h4, h5, h6
+      [{ font: [] }],
       [{ size: [] }],
       ["bold", "italic", "underline", "strike", "blockquote"],
       [
